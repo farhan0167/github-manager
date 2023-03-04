@@ -21,6 +21,17 @@ def root():
         }
 
 #get cur directory files/folder
+#create directory
+@app.route("/mkdir/<dir_name>")
+def mkdir(dir_name):
+    cur_dir = file_manager.cur_dir
+    mkdir_status = file_manager.mkdir(dir_name)
+    return {
+            "message": file_manager.list_directory(cur_dir),
+            "cur_dir": file_manager.cur_dir,
+            "root_dir": file_manager.root,
+            "success": mkdir_status
+        }
 
 #navigate to a folder
 @app.route("/forward-nav/<dir>")

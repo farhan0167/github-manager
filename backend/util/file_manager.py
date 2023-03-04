@@ -38,3 +38,13 @@ class FileManager:
     def list_directory(self, path):
         file_list = os.listdir(path)
         return file_list
+    
+    def mkdir(self, dir_name):
+        cur_dir = self.cur_dir 
+        path_to_dir = cur_dir + "/" + dir_name
+        try:
+            os.mkdir(path_to_dir)
+            return 1
+        except:
+            return 0
+

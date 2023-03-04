@@ -1,6 +1,7 @@
 import React from 'react'
 import { DirectoryFiles } from './components/DirectoryFiles'
 import {Container, Row, Col} from 'react-bootstrap'
+import './index.css'
 
 const App = () => {
   return (
@@ -8,7 +9,7 @@ const App = () => {
       <Container fluid>
         <Row>
           <Col style={{'backgroundColor': '#03035f', 'height': '100vh'}}></Col>
-          <Col lg={10}>
+          <Col lg={10} className='dashboard-cont'>
             <h3>Dashboard</h3>
             <DirectoryFiles></DirectoryFiles>
           </Col>

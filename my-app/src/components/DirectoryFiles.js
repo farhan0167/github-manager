@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import { ListGroup } from 'react-bootstrap'
-
+import { ListGroup, Button } from 'react-bootstrap'
+import '../index.css'
 
 export const DirectoryFiles = () => {
     const [data,setData] = useState(null)
@@ -24,6 +24,18 @@ export const DirectoryFiles = () => {
             setData(data_res)
         })
     }
+    function addFolder(){
+        const dir_name = prompt("Enter Folder Name:")
+        if (dir_name === ''){
+            alert("Enter a valid Folder Name")
+            return
+        }
+        fetch('http://localhost:8000/mkdir/'+dir_name)
+        .then(res => res.json())
+        .then(data_res => {
+            setData(data_res)
+        })
+    }
     
     useEffect(() => {
       fetch('http://localhost:8000/')
@@ -40,6 +52,9 @@ export const DirectoryFiles = () => {
             <ListGroup.Item>Projects</ListGroup.Item>
             <ListGroup.Item>Awesome App</ListGroup.Item>
         </ListGroup>
+        <div className='util-func'>
+            <Button variant='success' onClick={addFolder}>Add Folder</Button>
+        </div>
         <ListGroup>
             {data? (
                 
