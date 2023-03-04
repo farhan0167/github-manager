@@ -55,6 +55,32 @@ def backward_nav(subpath):
         "root_dir": root_path,
         "message": file_manager.list_directory(cur_dir) 
     }
+#launch browser
+@app.route("/launch-browser/<path:pathtolaunch>")
+def launchBrowser(pathtolaunch):
+    
+    try:
+        file_manager.launchBroswerWindowAtPath(pathtolaunch)
+        return {
+            "message": "success"
+        }
+    except:
+        return {
+            "message": "failure"
+        }
+
+@app.route("/launch-terminal")
+def launchTerminal():
+    try:
+        file_manager.launchTerminalAtPath()
+        return {
+            "message": "success"
+        }
+    except:
+        return {
+            "message": "failure"
+        }
+
 #make first commit to remote repo
 #commit changes options-[all, select folders]
 #check git status

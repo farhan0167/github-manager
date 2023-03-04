@@ -47,4 +47,13 @@ class FileManager:
             return 1
         except:
             return 0
+    
+    def launchTerminalAtPath(self):
+        os.system('open -a Terminal .')
+        return
+    def launchBroswerWindowAtPath(self, path):
+        os.chdir("/")
+        os.system(f"open {path}")
+        os.chdir(path)
+        return
 
