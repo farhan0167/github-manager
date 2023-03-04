@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { DirectoryFiles } from './components/DirectoryFiles'
+import {Container, Row, Col} from 'react-bootstrap'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <React.Fragment>
+      <Container fluid>
+        <Row>
+          <Col style={{'backgroundColor': '#03035f', 'height': '100vh'}}></Col>
+          <Col lg={10}>
+            <h3>Dashboard</h3>
+            <DirectoryFiles></DirectoryFiles>
+          </Col>
+        </Row>
+      </Container>
+      
+    </React.Fragment>
+  )
 }
 
-export default App;
+export default App
