@@ -1,12 +1,16 @@
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 from util.file_manager import FileManager
+from util.github_manager import Github
 import os
+
 
 app = Flask(__name__)
 CORS(app)
 #initialize file manager
-file_manager = FileManager(root=os.getcwd())
+root_path = os.getcwd()+'/Projects'
+file_manager = FileManager(root=root_path)
+github_manager = Github()
 
 #get root directory files/folders
 @app.route("/")
@@ -68,7 +72,7 @@ def launchBrowser(pathtolaunch):
         return {
             "message": "failure"
         }
-
+#launch terminal
 @app.route("/launch-terminal")
 def launchTerminal():
     try:
@@ -80,9 +84,61 @@ def launchTerminal():
         return {
             "message": "failure"
         }
+#launch vscode:
+@app.route('/launch-vscode')
+def vsCodeLaunch():
+    try:
+        file_manager.launchCodeEditor()
+        return {
+            "message": "success"
+        }
+    except:
+        return {
+            "message": "failure"
+        }
+#clone a repo:
+@app.route('/clone/<path:remote>')
+def clone_git_repo(remote):
+    cur_dir = file_manager.cur_dir
+    clone_status = github_manager.git_clone(remote)
+    if clone_status:
+        return {
+            "message": file_manager.list_directory(cur_dir),
+            "cur_dir": file_manager.cur_dir,
+            "root_dir": file_manager.root,
+            "success": clone_status
+        }
+    return {
+        "message": file_manager.list_directory(cur_dir),
+        "cur_dir": file_manager.cur_dir,
+        "root_dir": file_manager.root,
+        "success": clone_status
+    }
+
 
 #make first commit to remote repo
+@app.route('/create-repo/<path:remote>')
+def create_first_repo(remote):
+    cur_dir = file_manager.cur_dir
+    git_status = github_manager.create_new_repo(remote)
+
+    return {
+        "message": file_manager.list_directory(cur_dir),
+        "cur_dir": file_manager.cur_dir,
+        "root_dir": file_manager.root,
+        "success": git_status
+    }
+
 #commit changes options-[all, select folders]
+@app.route('/push-changes', methods=["POST"])
+def push_changes_to_git():
+    req = request.get_json()
+    commit_message = req['commit_message']
+    #cur_dir = file_manager.cur_dir
+    push_status = github_manager.push_changes_to_github(commit_message)
+    return {
+        'message': push_status
+    }
 #check git status
 #pull changes
 

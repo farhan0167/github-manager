@@ -56,4 +56,11 @@ class FileManager:
         os.system(f"open {path}")
         os.chdir(path)
         return
+    def launchCodeEditor(self):
+        os.system('code .')
+        return
 
+
+"""
+VSCode https://www.freecodecamp.org/news/how-to-open-visual-studio-code-from-your-terminal/
+"""
