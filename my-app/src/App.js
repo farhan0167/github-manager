@@ -8,10 +8,11 @@ const App = () => {
     <React.Fragment>
       <Container fluid>
         <Row>
-          <Col style={{'backgroundColor': 'gray', 'height': '100vh'}}></Col>
+          <Col style={{'backgroundColor': '#00223B', 'height': '100vh'}}></Col>
           <Col lg={10} className='dashboard-cont'>
-            <h3>Dashboard</h3>
+            <h2>Git Manager Dashboard</h2>
             <DirectoryFiles></DirectoryFiles>
+            
           </Col>
         </Row>
       </Container>

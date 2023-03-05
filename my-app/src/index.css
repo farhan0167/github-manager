@@ -16,6 +16,7 @@ code {
 }
 .util-func{
   margin-top: 2%;
+  display: flex;
 }
 .list-group{
   margin-top: 2%;
