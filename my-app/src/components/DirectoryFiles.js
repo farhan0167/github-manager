@@ -8,30 +8,37 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CodeIcon from '@mui/icons-material/Code';
 import { PushChangesGit } from './PushChangePop';
+import FolderIcon from '@mui/icons-material/Folder';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 
 export const DirectoryFiles = () => {
     const [data,setData] = useState(null)
     const [curDir, setCurDir] = useState(null)
+    const [rootDir, setRootDir] = useState('')
+    const [files, setFiles] = useState([])
+    const backendServer = 'http://localhost:8009'
     
     function handleClick(item){
         if (item.includes(".")){
             alert("Not a directory. You can only click directories")
             return
         }
-        const req_url = 'http://localhost:8000/forward-nav/'+item
+        const req_url = backendServer + '/forward-nav/'+item
         fetch(req_url)
         .then(res => res.json())
         .then(data_res => {
             setData(data_res)
             setCurDir(data_res.cur_dir)
+            setFiles(data_res.message)
         })
     }
     function handleClickRoot(){
-        fetch('http://localhost:8000/')
+        fetch(backendServer + '/')
         .then(res=> res.json())
         .then(data_res => {
             setData(data_res)
             setCurDir(data_res.cur_dir)
+            setFiles(data_res.message)
         })
     }
     function addFolder(){
@@ -40,7 +47,7 @@ export const DirectoryFiles = () => {
             alert("Enter a valid Folder Name")
             return
         }
-        fetch('http://localhost:8000/mkdir/'+dir_name)
+        fetch(backendServer + '/mkdir/'+dir_name)
         .then(res => res.json())
         .then(data_res => {
             setData(data_res)
@@ -48,21 +55,21 @@ export const DirectoryFiles = () => {
     }
     function openFinder(){
         const path = curDir
-        fetch("http://localhost:8000/launch-browser"+path)
+        fetch(backendServer + "/launch-browser"+path)
         .then(res => res.json())
         .then(res_data => {
             console.log(res_data)
         })
     }
     function openTerminal(){
-        fetch("http://localhost:8000/launch-terminal")
+        fetch(backendServer + "/launch-terminal")
         .then(res => res.json())
         .then(res_data => {
             console.log(res_data)
         })
     }
     function openCodeEditor(){
-        fetch("http://localhost:8000/launch-vscode")
+        fetch(backendServer + "/launch-vscode")
         .then(res => res.json())
         .then(res_data => {
             console.log(res_data)
@@ -74,7 +81,7 @@ export const DirectoryFiles = () => {
             alert("Enter a valid Folder Name")
             return
         }
-        fetch('http://localhost:8000/clone/'+remote_repo)
+        fetch(backendServer + '/clone/'+remote_repo)
         .then(res => res.json())
         .then(data_res => {
             setData(data_res)
@@ -86,23 +93,27 @@ export const DirectoryFiles = () => {
             alert("Enter a valid Git url")
             return
         }
-        fetch('http://localhost:8000/create-repo/'+remote_repo)
+        fetch(backendServer + '/create-repo/'+remote_repo)
         .then(res => res.json())
         .then(data_res => {
             setData(data_res)
+            setFiles(data_res.message)
         })
     }
 
     
     useEffect(() => {
-      fetch('http://localhost:8000/')
+      fetch(backendServer + '/')
       .then(res => res.json())
       .then(data_res => {
         setData(data_res)
         setCurDir(data_res.cur_dir)
+        setRootDir(data_res.root_dir)
+        setFiles(data_res.message)
         //console.log(data_res)
       })
     }, [])
+    console.log(files)
   return (
     <React.Fragment>
         <ListGroup horizontal>
@@ -121,16 +132,23 @@ export const DirectoryFiles = () => {
                     <Dropdown.Item onClick={cloneRepo}>Git Clone  <GitHubIcon/></Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
-            <Dropdown style={{'marginLeft':'10px'}}>
-                <Dropdown.Toggle variant="warning" id="dropdown-basic">
-                    Github Actions  <GitHubIcon/>
-                </Dropdown.Toggle>
+            {//git operations not allowed in root directory
+            curDir !== rootDir ? (
+                <Dropdown style={{'marginLeft':'10px'}}>
+                    <Dropdown.Toggle variant="warning" id="dropdown-basic">
+                        Github Actions  <GitHubIcon/>
+                    </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                    <Dropdown.Item onClick={makeFirstCommit}>First Commit  <CloudUploadIcon/></Dropdown.Item>
-                    <PushChangesGit data={data}/>
-                </Dropdown.Menu>
-            </Dropdown>
+                    <Dropdown.Menu>
+                        { //detect whether cur_dir already is a git repo, if not allow first commit
+                        !files.includes('.git') ? (
+                            <Dropdown.Item onClick={makeFirstCommit}>First Commit  <CloudUploadIcon/></Dropdown.Item>
+                        ): <></>}
+                        <PushChangesGit data={data}/>
+                    </Dropdown.Menu>
+                </Dropdown>
+            ): <></>}
+            
             <Button onClick={openFinder} style={{'marginLeft':'10px'}} size='md' variant="outline-primary">
                 Open Window  <LaunchIcon size='15'/>
             </Button>
@@ -147,9 +165,15 @@ export const DirectoryFiles = () => {
                 
                 data.message.map(item =>(
                     <div key={item} style={{'display':'flex'}}>
-                        <ListGroup.Item action onClick={()=> handleClick(item)}>
-                            {item}
-                        </ListGroup.Item>
+                        {item.includes(".") ? (
+                            <ListGroup.Item action onClick={()=> handleClick(item)}>
+                                <InsertDriveFileIcon sx={{ color: '#D7D7D7'}}/>   {item}
+                            </ListGroup.Item> 
+                        ): (
+                            <ListGroup.Item action onClick={()=> handleClick(item)}>
+                                <FolderIcon sx={{ color: '#A4D2F4'}}/>  {item}
+                            </ListGroup.Item>
+                        )}
                     </div>
 
                 ))

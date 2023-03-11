@@ -8,7 +8,7 @@ const App = () => {
     <React.Fragment>
       <Container fluid>
         <Row>
-          <Col style={{'backgroundColor': '#00223B', 'height': '100vh'}}></Col>
+          {/*<Col style={{'backgroundColor': '#00223B', 'height': '100%'}}></Col>*/}
           <Col lg={10} className='dashboard-cont'>
             <h2>Git Manager Dashboard</h2>
             <DirectoryFiles></DirectoryFiles>

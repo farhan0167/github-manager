@@ -10,6 +10,7 @@ export function PushChangesGit(props) {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const backendServer = 'http://localhost:8009'
 
   const handleClose = () => {
     setShow(false)
@@ -33,7 +34,7 @@ export function PushChangesGit(props) {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(messageToSend)
     };
-    fetch('http://localhost:8000/push-changes', requestOptions)
+    fetch(backendServer + '/push-changes', requestOptions)
     .then(res => res.json())
     .then(data_res => {
         if (data_res.message === 0){
@@ -66,6 +67,7 @@ export function PushChangesGit(props) {
           <Modal.Title>Push Changes to Github</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        <p>Pushing changes at: {props.data.cur_dir}</p>
         <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Add Commit Message</Form.Label>

@@ -47,7 +47,11 @@ class FileManager:
             return 1
         except:
             return 0
-    
+    """
+    The methods below require minimal code because when you run
+    os.system, the cmd will run in the current directory which
+    is what we want
+    """
     def launchTerminalAtPath(self):
         os.system('open -a Terminal .')
         return
