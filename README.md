@@ -56,3 +56,10 @@ The [Flask](https://github.com/farhan0167/github-manager/blob/main/backend/app.p
    1. Creating a git repository
    2. Cloning a git repository
    3. Pushing changes to a remote git repository
+
+## Notes
+
+1. I also developed a Java version of this application that can be found [here](https://github.com/farhan0167/git-manager-java).
+2. Considering the following future directions:
+   1. Enable users to create a full-stack application. There are Getting Started for React, Flask and many other applications but there are no Getting Started for a full stack application. The objective will be to add a button that creates a react project and flask project.
+   2. Enable users to deploy their projects on to the Internet
