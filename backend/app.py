@@ -141,7 +141,7 @@ def push_changes_to_git():
     #cur_dir = file_manager.cur_dir
     push_status = github_manager.push_changes_to_github(commit_message)
     return {
-        'message': push_status
+        'success': push_status
     }
 #check git status
 #pull changes
