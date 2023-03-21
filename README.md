@@ -43,7 +43,7 @@ In order to run the repository to see current progress, follow the steps:
 
 ## Technical Details
 
-The Flask application initializes two Objects- The File Manager and Github object. 
+The [Flask](https://github.com/farhan0167/github-manager/blob/main/backend/app.py) application initializes two Objects- The File Manager and Github object. 
 1. [File Manager](https://github.com/farhan0167/github-manager/blob/main/backend/util/file_manager.py):
       The file manager class keeps track of the root and current directory. Users can:
       1. See the files of the current directory
