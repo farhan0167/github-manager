@@ -54,8 +54,8 @@ export const DirectoryFiles = () => {
         })
     }
     function openFinder(){
-        const path = curDir
-        fetch(backendServer + "/launch-browser"+path)
+        //const path = curDir
+        fetch(backendServer + "/launch-browser")
         .then(res => res.json())
         .then(res_data => {
             console.log(res_data)
@@ -81,7 +81,15 @@ export const DirectoryFiles = () => {
             alert("Enter a valid Folder Name")
             return
         }
-        fetch(backendServer + '/clone/'+remote_repo)
+        let messageToSend = {
+            remote: remote_repo
+        }
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(messageToSend)
+        };
+        fetch(backendServer + '/clone', requestOptions)
         .then(res => res.json())
         .then(data_res => {
             setData(data_res)
@@ -93,7 +101,15 @@ export const DirectoryFiles = () => {
             alert("Enter a valid Git url")
             return
         }
-        fetch(backendServer + '/create-repo/'+remote_repo)
+        let messageToSend = {
+            remote: remote_repo
+        }
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(messageToSend)
+        };
+        fetch(backendServer + '/create-repo', requestOptions)
         .then(res => res.json())
         .then(data_res => {
             setData(data_res)

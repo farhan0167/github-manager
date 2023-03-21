@@ -37,10 +37,10 @@ export function PushChangesGit(props) {
     fetch(backendServer + '/push-changes', requestOptions)
     .then(res => res.json())
     .then(data_res => {
-        if (data_res.message === 0){
+        if (data_res.success === 0){
             setError("Push Failed")
         }
-        else if(data_res.message === 1){
+        else if(data_res.success === 1){
             setLoading(false)
             setSuccess(true)
         }

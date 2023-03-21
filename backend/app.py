@@ -60,11 +60,11 @@ def backward_nav(subpath):
         "message": file_manager.list_directory(cur_dir) 
     }
 #launch browser
-@app.route("/launch-browser/<path:pathtolaunch>")
-def launchBrowser(pathtolaunch):
-    
+@app.route("/launch-browser")
+def launchBrowser():
+    cur_dir = file_manager.cur_dir
     try:
-        file_manager.launchBroswerWindowAtPath(pathtolaunch)
+        file_manager.launchBroswerWindowAtPath(cur_dir)
         return {
             "message": "success"
         }
@@ -97,8 +97,10 @@ def vsCodeLaunch():
             "message": "failure"
         }
 #clone a repo:
-@app.route('/clone/<path:remote>')
-def clone_git_repo(remote):
+@app.route('/clone', methods=['POST'])
+def clone_git_repo():
+    req = request.get_json()
+    remote = req['remote']
     cur_dir = file_manager.cur_dir
     clone_status = github_manager.git_clone(remote)
     if clone_status:
@@ -117,8 +119,10 @@ def clone_git_repo(remote):
 
 
 #make first commit to remote repo
-@app.route('/create-repo/<path:remote>')
-def create_first_repo(remote):
+@app.route('/create-repo', methods=['POST'])
+def create_first_repo():
+    req = request.get_json()
+    remote = req['remote']
     cur_dir = file_manager.cur_dir
     git_status = github_manager.create_new_repo(remote)
 
