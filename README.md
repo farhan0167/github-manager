@@ -1,13 +1,13 @@
 # github-manager
 
-The goal is to create an application, where you can manage your local git repositories. You can:
-1. Create a repo on github, and then simply just hit a button to take your project on to github.
-2. Pushing changes will be as simple as clicks of buttons
-3. Once the above is complete, then we move on to:
-   1. Netlify integration: Create a similar "Deploy to Netlify" button to easily deploy to netlify
-   2. If your project has a backend, create a "Deploy to Heroku" button to easily deploy to Heroku
-   3. Both the above functionalities would abstract away the configuration burden
+## Problem Statement:
+As a developer, managing multiple projects across different directories can be time-consuming and tedious. Additionally, writing out git commands to push code can be error-prone and distract from the actual coding process. These inefficiencies can slow down the development process and hinder productivity.
 
+To address these issues, I have developed a file manager application that streamlines the application development procedure on Github. This application provides a centralized location to organize all of your projects and offers the ability to launch code editors and terminals with just a few clicks. This allows developers to easily navigate and work on their projects without the hassle of searching through multiple directories.
+
+Furthermore, this app abstracts away writing git commands by providing a simple and intuitive interface for pushing code. With just a single click, developers can push their code to Github without worrying about the specifics of the command-line interface. This application aims to enhance productivity and streamline the development process for developers of all levels.
+
+## Getting Started:
 This is currently a work in progress. The current version can be thought of as a file manager application.
 In order to run the repository to see current progress, follow the steps:
 1. Clone this repo:
@@ -40,3 +40,19 @@ In order to run the repository to see current progress, follow the steps:
       python3 startup-script.py
       ```
       This will start both a React and Flask server running on multiple threads.
+
+## Technical Details
+
+The Flask application initializes two Objects- The File Manager and Github object. 
+1. [File Manager](https://github.com/farhan0167/github-manager/blob/main/backend/util/file_manager.py):
+      The file manager class keeps track of the root and current directory. Users can:
+      1. See the files of the current directory
+      2. Navigate within directories
+      3. Launch terminal windows, VS Code and finder windows
+      These are made possible by leveraging the OS module provided by python.
+
+2. [Github Manager](https://github.com/farhan0167/github-manager/blob/main/backend/util/github_manager.py):
+   The github class handles all github related functions:
+   1. Creating a git repository
+   2. Cloning a git repository
+   3. Pushing changes to a remote git repository
