@@ -44,6 +44,19 @@ In order to run the repository to see current progress, follow the steps:
    npm start
    ```
 
+## Demo:
+
+### Clone a Repo
+![clone](assets/clone.GIF)
+
+### Launch VS Code
+![clone](assets/launchvs.gif)
+**Note:** Make sure to have VS Code configured to launch using terminal command. Refer [here](https://code.visualstudio.com/docs/setup/mac). 
+
+### Push Changes
+![clone](assets/push.gif)
+
+
 ## Technical Details
 
 The [Flask](https://github.com/farhan0167/github-manager/blob/main/backend/app.py) application initializes two Objects- The File Manager and Github object. 
