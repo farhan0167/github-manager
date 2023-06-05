@@ -14,9 +14,9 @@ In order to run the repository to see current progress, follow the steps:
    ```bash
    git clone https://github.com/farhan0167/github-manager.git
    ```
-2. Go inside the folder:
+2. Go inside the root folder(git-manager):
    ```bash
-   cd github-manager/backend
+   cd backend/
    ```
 3. Install virtual env:
    ```bash
@@ -25,21 +25,24 @@ In order to run the repository to see current progress, follow the steps:
    Make sure you install venv in the backend folder
 4. Activate the venv:
    ```bash
-   source vevn/bin/activate
+   source venv/bin/activate
    ```
 5. Install all the dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-
-6. Once all the dependencies are installed, you can choose to either stay in the venv or deactivate it, because
-   now we'll run the `startup-script.py` file.
-   1. Go back to the main directory where the `startup-script.py` file is
-   2. Run the `startup-script.py` file
-      ```bash
-      python3 startup-script.py
-      ```
-      This will start both a React and Flask server running on multiple threads.
+6. Run the following to start the Flask server:
+   ```bash
+   python3 app.py
+   ```
+7. Open another terminal window at root, and navigate to `/my-app` and run:
+   ```bash
+   npm install
+   ```
+8. And then start the react app:
+   ```bash
+   npm start
+   ```
 
 ## Technical Details
 

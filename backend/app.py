@@ -9,6 +9,7 @@ app = Flask(__name__)
 CORS(app)
 #initialize file manager
 root_path = os.getcwd()+'/Projects'
+print(root_path)
 file_manager = FileManager(root=root_path)
 github_manager = Github()
 
@@ -63,6 +64,7 @@ def backward_nav(subpath):
 @app.route("/launch-browser")
 def launchBrowser():
     cur_dir = file_manager.cur_dir
+    
     try:
         file_manager.launchBroswerWindowAtPath(cur_dir)
         return {

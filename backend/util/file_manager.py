@@ -56,7 +56,8 @@ class FileManager:
         os.system('open -a Terminal .')
         return
     def launchBroswerWindowAtPath(self, path):
-        os.system(f"open {path}")
+        print("path", path)
+        os.system(f"open '{path}'")
         return
     def launchCodeEditor(self):
         os.system('code .')
