@@ -51,6 +51,7 @@ In order to run the repository to see current progress, follow the steps:
 
 ### Launch VS Code
 ![clone](assets/launchvs.gif)
+
 **Note:** Make sure to have VS Code configured to launch using terminal command. Refer [here](https://code.visualstudio.com/docs/setup/mac). 
 
 ### Push Changes
