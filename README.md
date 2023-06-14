@@ -1,4 +1,5 @@
 # github-manager
+## With OpenAI Integration
 
 ## Problem Statement:
 As a developer, managing multiple projects across different directories can be time-consuming and tedious. Additionally, writing out git commands to push code can be error-prone and distract from the actual coding process. These inefficiencies can slow down the development process and hinder productivity.
